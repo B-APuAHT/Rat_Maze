@@ -77,7 +77,6 @@ class Rat:
         return '{0} at ({1}, {2}) ate {3} sprouts.'.format(
             self.symbol, self.row, self.col, self.num_sprouts_eaten)
 
-    # Write your Rat methods here.
 
 class Maze:
     """ A 2D maze. """
@@ -100,5 +99,12 @@ class Maze:
         """
 
         return self.maze[row][col] == WALL
+    
+    def get_character(self, row, col):
+        """ (Maze, int, int) - > str
 
-    # Write your Maze methods here.
+        Return the charatcer in the maze at the given row and column
+        """
+
+        return self.maze[row][col] if self.maze[row][col] != Rat else HALL
+
