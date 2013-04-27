@@ -90,7 +90,7 @@ class Maze:
         self.maze = maze
         self.rat_1 = rat_1
         self.rat_2 = rat_2
-        self.num_sprouts_left = sum([x,count(SPROUT) for x in maze])
+        self.num_sprouts_left = sum([x.count(SPROUT) for x in maze])
 
     def is_wall(self, row, col):
         """ (Maze, int, int) -> bool
@@ -124,3 +124,11 @@ class Maze:
                 rat.eat_sprout()
         return self.is_wall(row, col)
             
+    def __str__(self):
+        """ (Maze) -> str
+
+        Return a string representation of the Maze class object.
+        """
+
+        return "".join([x+'\n' for x in self.maze]) + self.rat_1.__str__() + \
+               '\n' + self.rat_2.__str__()
