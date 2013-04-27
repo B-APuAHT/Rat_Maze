@@ -105,7 +105,7 @@ class MazeApp(tkinter.Frame):
         Make a grid of Labels with backing StringVars so that we can
         update the picture of the maze.
         """
-
+        
         self.the_maze_vars = []
         for r in range(len(self.the_maze.maze)):
 

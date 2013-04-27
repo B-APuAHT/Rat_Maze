@@ -91,6 +91,8 @@ class Maze:
         self.rat_1 = rat_1
         self.rat_2 = rat_2
         self.num_sprouts_left = sum([x.count(SPROUT) for x in maze])
+        self.maze[self.rat_1.row][self.rat_1.col] = self.rat_1.symbol
+        self.maze[self.rat_2.row][self.rat_2.col] = self.rat_2.symbol
 
     def is_wall(self, row, col):
         """ (Maze, int, int) -> bool
@@ -114,15 +116,17 @@ class Maze:
         Return true if and only if there isn't a wall in the way.
         """
 
-        row = rat.row + ver_direct
-        col = rat.col + hor_direct
-        if not self.is_wall(row, col):
-            self.maze[row - ver_direct][col - hor_direct] = HALL
-            rat.set_location(row, col)
-            if self.maze[row][col] == SPROUT:
+        rw = rat.row + ver_direct
+        cl = rat.col + hor_direct
+        print(rw, cl)
+        if not self.is_wall(rw, cl) and (rw != 0 or cl != 0):
+            self.maze[rw - ver_direct][cl - hor_direct] = HALL
+            self.maze[rw][cl] = rat.symbol
+            rat.set_location(rw, cl)
+            if self.maze[rw][cl] == SPROUT:
                 self.num_sprouts_left -= 1
                 rat.eat_sprout()
-        return self.is_wall(row, col)
+        return not self.is_wall(rw, cl)
             
     def __str__(self):
         """ (Maze) -> str
@@ -131,4 +135,4 @@ class Maze:
         """
 
         return "".join(["".join(x)+'\r\n' for x in self.maze]) + \
-               self.rat_1.__str__()+'\r\n'+self.rat_2.__str__()
+               self.rat_1.__str__() + '\r\n' + self.rat_2.__str__()
