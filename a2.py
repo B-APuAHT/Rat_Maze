@@ -53,8 +53,8 @@ class Rat:
         Set the rat's row and col instance variables to the given row and column.
         """
 
-        self.row = row
-        self.col = col
+        self.row += row
+        self.col += col
 
     def eat_sprout(self):
         """ (Rat) -> NoneType
@@ -90,7 +90,7 @@ class Maze:
         self.maze = maze
         self.rat_1 = rat_1
         self.rat_2 = rat_2
-        self.num_sprouts_left = 0
+        self.num_sprouts_left = sum([x,count(SPROUT) for x in maze])
 
     def is_wall(self, row, col):
         """ (Maze, int, int) -> bool
@@ -108,3 +108,19 @@ class Maze:
 
         return self.maze[row][col] if self.maze[row][col] != Rat else HALL
 
+    def move(self, rat, ver_direct, hor_direct):
+        """ (Maze, Rat, int, int) -> bool
+
+        Return true if and only if there isn't a wall in the way.
+        """
+
+        row = rat.row + ver_direct
+        col = rat.col + hor_direct
+        if not self.is_wall(row, col):
+            self.maze[row - ver_direct][col - hor_direct] = HALL
+            rat.set_location(row, col)
+            if self.maze[row][col] == SPROUT:
+                self.num_sprouts_left -= 1
+                rat.eat_sprout()
+        return self.is_wall(row, col)
+            
