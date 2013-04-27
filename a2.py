@@ -130,5 +130,5 @@ class Maze:
         Return a string representation of the Maze class object.
         """
 
-        return "".join([x+'\n' for x in self.maze]) + self.rat_1.__str__() + \
-               '\n' + self.rat_2.__str__()
+        return "".join(["".join(x)+'\r\n' for x in self.maze]) + \
+               self.rat_1.__str__()+'\r\n'+self.rat_2.__str__()
