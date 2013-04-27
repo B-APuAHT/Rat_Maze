@@ -46,7 +46,24 @@ class Rat:
         self.row = row;
         self.col = col;
         self.num_sprouts_eaten = 0;
+        
+    def set_location(self, row, col):
+        """ (Rat, int, int) -> NoneType
 
+        Set the rat's row and col instance variables to the given row and column.
+        """
+
+        self.row = row
+        self.col = col
+
+    def eat_sprout(self):
+        """ (Rat) -> NoneType
+
+        Add one to the rat's count of sprouts.
+        """
+
+        self.num_sprouts_eaten += 1
+        
     def __str__(self):
         """ (Rat) -> str
 
@@ -65,7 +82,15 @@ class Rat:
 class Maze:
     """ A 2D maze. """
 
+    def __init__(self, maze, rat_1, rat_2):
+        """ (Maze, list of list of str, Rat, Rat) -> NoneType
+
+        Initialize the maze with rats.
+        """
+
+        self.maze = maze
+        self.rat_1 = rat_1
+        self.rat_2 = rat_2
+        self.num_sprouts_left = 0
+
     # Write your Maze methods here.
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
