@@ -93,4 +93,12 @@ class Maze:
         self.rat_2 = rat_2
         self.num_sprouts_left = 0
 
+    def is_wall(self, row, col):
+        """ (Maze, int, int) -> bool
+
+        Return true if and only if there is a wall at the given row and column of the maze.
+        """
+
+        return self.maze[row][col] == WALL
+
     # Write your Maze methods here.
