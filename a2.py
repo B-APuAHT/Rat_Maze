@@ -47,14 +47,14 @@ class Rat:
         self.col = col;
         self.num_sprouts_eaten = 0;
         
-    def set_location(self, row, col):
+    def set_location(self, rw, cl):
         """ (Rat, int, int) -> NoneType
 
         Set the rat's row and col instance variables to the given row and column.
         """
 
-        self.row += row
-        self.col += col
+        self.row = rw
+        self.col = cl
 
     def eat_sprout(self):
         """ (Rat) -> NoneType
@@ -118,14 +118,15 @@ class Maze:
 
         rw = rat.row + ver_direct
         cl = rat.col + hor_direct
-        print(rw, cl)
-        if not self.is_wall(rw, cl) and (rw != 0 or cl != 0):
+        if not self.is_wall(rw, cl) and (ver_direct != 0 or hor_direct != 0):
+            if self.maze[rw][cl] == SPROUT:
+                if self.num_sprouts_left > 0:
+                    self.num_sprouts_left -= 1
+                    rat.eat_sprout()
+                    self.maze[rw][cl] = HALL
             self.maze[rw - ver_direct][cl - hor_direct] = HALL
             self.maze[rw][cl] = rat.symbol
             rat.set_location(rw, cl)
-            if self.maze[rw][cl] == SPROUT:
-                self.num_sprouts_left -= 1
-                rat.eat_sprout()
         return not self.is_wall(rw, cl)
             
     def __str__(self):
@@ -134,5 +135,6 @@ class Maze:
         Return a string representation of the Maze class object.
         """
 
-        return "".join(["".join(x)+'\r\n' for x in self.maze]) + \
-               self.rat_1.__str__() + '\r\n' + self.rat_2.__str__()
+        return "".join(["".join(x)+'\n' for x in self.maze]) + \
+               self.rat_1.__str__() + '\n' + self.rat_2.__str__()
+
